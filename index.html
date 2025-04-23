@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags (English, focused on crazycattle3d) -->
+    <title>CrazyCattle3D - Play the Hilarious Sheep Battle Royale Online!</title>
+    <meta name="description" content="Play CrazyCattle3D, the viral physics-based sheep battle royale game. Bump other sheep off the map and be the last one standing! Play crazycattle3d online now for free at crazy-cattle-3d.art.">
+    <meta name="keywords" content="crazycattle3d, crazy cattle 3d, crazy cattle, crazycattle3d game, crazycattle3d online, play crazycattle3d, sheep battle royale, physics game, indie game">
+    <link rel="canonical" href="https://crazy-cattle-3d.art/">
+    <!-- Removed external stylesheet link -->
+    <!-- 你需要在这里定义 SVG 图标 (icon-share, icon-close) -->
+    <!-- 或者引入包含这些图标的 SVG 文件 -->
+    <style>
+        /* Inlined CSS from style.css */
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #5a4a42; /* Brownish color */
+        }
+
+        .player__inner {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        /* Basic Columns (adjust if more columns are added) */
+        .player__columns {
+            display: flex;
+            justify-content: center; /* Center the content column */
+        }
+
+        .player__content {
+            /* Adjust width as needed if other columns exist */
+            width: 100%;
+        }
+
+        .flash-container iframe {
+            display: block; /* Remove extra space below iframe */
+            border: 1px solid #ddd; /* Optional border */
+            margin-bottom: 15px;
+        }
+
+        .player-actions {
+            display: flex;
+            justify-content: flex-start; /* Align items to the start */
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            min-height: 40px; /* Ensure the area doesn't collapse if empty */
+        }
+
+        .player-actions__item {
+            position: relative; /* Needed for potential absolute positioning of other items */
+            margin-right: 10px; /* Add some space between action items */
+        }
+
+        .btn {
+            display: inline-flex; /* Use flexbox for icon alignment */
+            align-items: center;
+            padding: 8px 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn--accent {
+            background-color: #8B4513; /* SaddleBrown */
+            color: white;
+            border-color: #8B4513;
+        }
+
+        .btn--accent:hover {
+            background-color: #A0522D; /* Sienna */
+            border-color: #A0522D;
+        }
+
+        .btn .icon {
+            margin-right: 5px; /* Space between icon and text */
+            width: 20px; /* Adjust icon size in button */
+            height: 20px;
+        }
+
+        /* Shares Popup */
+        .shares-popup {
+            position: relative;
+        }
+
+        .shares-popup__form {
+            /* display: none; /* Hidden by default, JS will toggle */
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            bottom: 100%; /* Position above the button */
+            left: 0;
+            margin-bottom: 10px; /* Space between button and popup */
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border-radius: 5px;
+            width: 280px; /* Adjust width as needed */
+            z-index: 10;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .shares-popup__form.active {
+            /* display: block; /* Show when active */
+            opacity: 1;
+            visibility: visible;
+        }
+
+
+        .shares-popup__inner {
+            padding: 15px;
+            position: relative;
+        }
+
+        .shares-popup__title {
+            margin: 0 0 10px 0;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .shares-popup__close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #aaa;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        .shares-popup__close:hover {
+            color: #333;
+        }
+        .shares-popup__close .icon {
+             width: 16px;
+             height: 16px;
+             display: block; /* Ensure icon size is respected */
+        }
+
+
+        .shares {
+            margin-top: 10px;
+        }
+
+        .shares__buttons {
+            margin-bottom: 15px;
+        }
+
+        /* Basic styling for social share buttons if bento component doesn't load */
+        .social-share-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .social-share-group bento-social-share {
+            margin-right: 5px;
+            margin-bottom: 5px;
+            background-color: #eee; /* Placeholder style */
+            color: #333;
+            padding: 5px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .social-share-group bento-social-share:hover {
+            background-color: #ddd;
+        }
+
+
+        .shares__subtitle {
+            margin: 15px 0 5px 0;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .shares__link {
+            display: flex;
+            align-items: center;
+        }
+
+        .shares__link-val {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px 0 0 3px;
+            font-size: 13px;
+            background-color: #f9f9f9;
+            outline: none;
+        }
+
+        .shares__link-copy {
+            padding: 8px 12px;
+            background-color: #5cb85c; /* Green */
+            color: white;
+            text-decoration: none;
+            border: 1px solid #4cae4c;
+            border-left: none;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            font-size: 13px;
+            white-space: nowrap; /* Prevent wrapping */
+            transition: background-color 0.2s ease;
+        }
+
+        .shares__link-copy:hover {
+            background-color: #449d44;
+        }
+
+        /* Simple copy feedback */
+        .shares__link-copy.copied {
+            background-color: #aaa;
+            border-color: #999;
+            cursor: default;
+        }
+
+        /* 临时的 SVG 占位符样式，方便查看 */
+        .icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            /* background-color: #ccc; /* 占位符背景 */
+            vertical-align: middle;
+            margin-right: 5px;
+            fill: currentColor; /* 让 SVG 颜色跟随父元素 */
+        }
+        /* 隐藏 bento-social-share 的默认样式，如果它们没有正常加载 */
+        /* (Can be removed as bento elements are gone) */
+        /* bento-social-share {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 2px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        } */
+    </style>
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "CrazyCattle3D",
+      "url": "https://crazy-cattle-3d.art/",
+      "description": "CrazyCattle3D is the viral indie physics-based battle royale game where you play as a sheep trying to eliminate others by bumping them off the map.",
+      "genre": ["Battle Royale", "Physics", "Indie", "Action"],
+      "applicationCategory": "GameApplication",
+      "keywords": "crazycattle3d, crazy cattle 3d, sheep battle royale, physics game",
+      "operatingSystem": "Web browser",
+      "offers": {
+        "@type": "Offer",
+        "category": "free",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "gamePlatform": ["PC", "Web browser"],
+      "publisher": {
+           "@type": "Organization",
+           "name": "Anna (@4nn4t4t on X)"
+       },
+       "author": {
+            "@type": "Person",
+            "name": "Anna (@4nn4t4t on X)"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Removed unused SVG definitions (share, close) -->
+    <svg width="0" height="0" style="position:absolute">
+        <!-- Placeholder for fullscreen icon if needed -->
+         <symbol id="icon-fullscreen" viewBox="0 0 64 64">
+             <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0878 32V12.0878H32V6H6V32H12.0878Z"/>
+             <path fill-rule="evenodd" clip-rule="evenodd" d="M32 58H58V32H51.9122V51.9122H32V58Z"/>
+         </symbol>
+          <!-- Placeholder for comments icon if needed -->
+         <symbol id="icon-comments" viewBox="0 0 512 512">
+             <path d="M160 176C151.513 176 143.374 179.371 137.373 185.373C131.371 191.374 128 199.513 128 208C128 216.487 131.371 224.626 137.373 230.627C143.374 236.629 151.513 240 160 240C168.487 240 176.626 236.629 182.627 230.627C188.629 224.626 192 216.487 192 208C192 199.513 188.629 191.374 182.627 185.373C176.626 179.371 168.487 176 160 176ZM224 208C224 199.513 227.371 191.374 233.373 185.373C239.374 179.371 247.513 176 256 176C264.487 176 272.626 179.371 278.627 185.373C284.629 191.374 288 199.513 288 208C288 216.487 284.629 224.626 278.627 230.627C272.626 236.629 264.487 240 256 240C247.513 240 239.374 236.629 233.373 230.627C227.371 224.626 224 216.487 224 208ZM352 176C343.513 176 335.374 179.371 329.373 185.373C323.371 191.374 320 199.513 320 208C320 216.487 323.371 224.626 329.373 230.627C335.374 236.629 343.513 240 352 240C360.487 240 368.626 236.629 374.627 230.627C380.629 224.626 384 216.487 384 208C384 199.513 380.629 191.374 374.627 185.373C368.626 179.371 360.487 176 352 176Z"/>
+             <path fill-rule="evenodd" clip-rule="evenodd" d="M80 16C58.7827 16 38.4344 24.4285 23.4315 39.4315C8.42855 54.4344 0 74.7827 0 96L0 320C0 341.217 8.42855 361.566 23.4315 376.569C38.4344 391.571 58.7827 400 80 400H80.192L80.352 474.848C80.3576 478.045 81.3208 481.167 83.1175 483.812C84.9141 486.456 87.4618 488.502 90.432 489.685C93.4022 490.867 96.6586 491.133 99.7814 490.448C102.904 489.763 105.75 488.158 107.952 485.84L189.376 400H432C453.217 400 473.566 391.571 488.569 376.569C503.571 361.566 512 341.217 512 320V96C512 85.4943 509.931 75.0914 505.91 65.3853C501.89 55.6793 495.997 46.8601 488.569 39.4315C481.14 32.0028 472.321 26.11 462.615 22.0896C452.909 18.0693 442.506 16 432 16H80ZM32 96C32 83.2696 37.0571 71.0606 46.0589 62.0589C55.0606 53.0571 67.2696 48 80 48H432C444.73 48 456.939 53.0571 465.941 62.0589C474.943 71.0606 480 83.2696 480 96V320C480 332.73 474.943 344.939 465.941 353.941C456.939 362.943 444.73 368 432 368H182.496C180.322 367.999 178.171 368.442 176.174 369.3C174.177 370.158 172.376 371.414 170.88 372.992L112.256 434.784L112.16 383.968C112.152 379.73 110.462 375.669 107.462 372.675C104.463 369.681 100.398 368 96.16 368H80C67.2696 368 55.0606 362.943 46.0589 353.941C37.0571 344.939 32 332.73 32 320V96Z"/>
+         </symbol>
+    </svg>
+
+    <div class="player__inner">
+        <div class="player__columns">
+            <div class="player__content">
+                <h1>CrazyCattle3D</h1>
+                <div id="flash-container" class="flash-container iframe" data-fullwidth="0">
+                    <!-- Updated iframe src based on user input -->
+                    <iframe class="iframe-default" id="iframehtml5" title="CrazyCattle3D Game" width="100%" height="600px" src="https://crazy-cattle3d.org/game/crazycattle3d/" frameborder="0" border="0" scrolling="auto" allowfullscreen allow="fullscreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <!-- English Game Description -->
+                <div class="game-description" style="margin: 20px 0; padding: 15px; background-color: #f9f9f9; border-radius: 5px; border: 1px solid #eee;">
+                    <h2>About CrazyCattle3D</h2>
+                    <p><strong>CrazyCattle3D</strong> is a hilarious and chaotic indie physics-based battle royale game that has taken the internet by storm. Don't let the name fool you – in <strong>CrazyCattle3D</strong>, you play as a surprisingly agile sheep!</p>
+                    <p><strong>How to Play CrazyCattle3D?</strong> Your goal is simple: be the last sheep standing in the arena. Control your sheep using your mouse and WASD keys. Use momentum and strategic bumps to knock other sheep off the platform or into hazards. There are no weapons; success in <strong>CrazyCattle3D</strong> relies purely on your skill in maneuvering and timing your attacks. Ready to experience the wacky sheep mayhem? Play <strong>CrazyCattle3D</strong> online for free right here!</p>
+                    <p>Key Features of <strong>CrazyCattle3D</strong>:</p>
+                    <ul>
+                        <li>Unique physics-driven battle royale gameplay.</li>
+                        <li>Play as hilarious sheep bumping each other out.</li>
+                        <li>Simple controls, but challenging and addictive fun.</li>
+                        <li>Play <strong>CrazyCattle3D</strong> directly in your browser, no download needed.</li>
+                    </ul>
+                </div>
+
+                <div class="player__actions player-actions">
+                    <!-- Placeholder for other actions -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inlined JavaScript from script.js
+        document.addEventListener('DOMContentLoaded', () => {
+            // Removed Share Button and Popup related JS
+
+            // Optional: Add fullscreen functionality if needed
+            // const fullscreenButton = document.querySelector('.js-fullscreen');
+            // const iframeContainer = document.getElementById('flash-container'); // Or the iframe itself
+            // if (fullscreenButton && iframeContainer) {
+            //     fullscreenButton.addEventListener('click', (event) => {
+            //         event.preventDefault();
+            //         if (iframeContainer.requestFullscreen) {
+            //             iframeContainer.requestFullscreen();
+            //         } else if (iframeContainer.mozRequestFullScreen) { /* Firefox */
+            //             iframeContainer.mozRequestFullScreen();
+            //         } else if (iframeContainer.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            //             iframeContainer.webkitRequestFullscreen();
+            //         } else if (iframeContainer.msRequestFullscreen) { /* IE/Edge */
+            //             iframeContainer.msRequestFullscreen();
+            //         }
+            //     });
+            // }
+
+        });
+    </script>
+</body>
+</html> 
