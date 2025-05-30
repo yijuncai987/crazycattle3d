@@ -251,6 +251,33 @@
             margin-right: 5px;
             fill: currentColor; /* 让 SVG 颜色跟随父元素 */
         }
+        
+        /* 页脚样式 - 不显眼的赞助信息 */
+        .site-footer {
+            margin-top: 40px;
+            padding: 15px 0;
+            text-align: center;
+            border-top: 1px solid #eee;
+            background-color: #fafafa;
+        }
+        
+        .sponsor-info {
+            font-size: 11px;
+            color: #888;
+            line-height: 1.4;
+        }
+        
+        .sponsor-info a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .sponsor-info a:hover {
+            color: #8B4513;
+            text-decoration: underline;
+        }
+        
         /* 隐藏 bento-social-share 的默认样式，如果它们没有正常加载 */
         /* (Can be removed as bento elements are gone) */
         /* bento-social-share {
@@ -363,5 +390,12 @@
 
         });
     </script>
+    
+    <!-- 页脚 - 赞助信息 -->
+    <footer class="site-footer">
+        <div class="sponsor-info">
+            Background graphics powered by <a href="https://pinkbackground.app" target="_blank" rel="dofollow">Pink Background</a>
+        </div>
+    </footer>
 </body>
 </html> 
